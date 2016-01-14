@@ -1,13 +1,11 @@
-import React from 'react';
-import uid from 'node-uuid';
-import Notes from './Notes.jsx';
-//import Note from './Note.jsx';
+var React = require('react');
+var uid = require('node-uuid');
+var Notes = require('./Notes.jsx');
 
-export default class App extends React.Component {
-  constructor(props) {
-    super(props);
+var App = React.createClass({
 
-    this.state = {
+  getInitialState() {
+    return {
       notes : [
         {
           id: uid.v4(),
@@ -27,11 +25,7 @@ export default class App extends React.Component {
         }
       ]
     };
-
-    this.addNote = this.addNote.bind(this);
-    this.editNote = this.editNote.bind(this);
-    this.deleteNote = this.deleteNote.bind(this);
-  }
+  },
 
   render() {
     const notes = this.state.notes;
@@ -43,7 +37,7 @@ export default class App extends React.Component {
                onDelete={this.deleteNote} />
       </div>
     );
-  }
+  },
 
   addNote() {
     this.setState({
@@ -52,7 +46,7 @@ export default class App extends React.Component {
         task: 'New task'
       }]
     });
-  }
+  },
 
   editNote(id, task) {
     const notes = this.state.notes.map((note) => {
@@ -63,11 +57,14 @@ export default class App extends React.Component {
     });
 
     this.setState({notes});
-  }
+  },
 
   deleteNote(id) {
     this.setState({
       notes: this.state.notes.filter((note) => note.id !== id) // all but the note beign removed
     });
   }
-}
+
+});
+
+module.exports = App;

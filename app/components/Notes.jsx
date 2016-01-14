@@ -1,7 +1,7 @@
-import React from 'react';
-import Note from './Note.jsx';
+var React = require('react');
+var Note = require('./Note.jsx');
 
-export default ({notes, onEdit, onDelete}) => {
+module.exports = ({notes, onEdit, onDelete}) => {
   return (
     <ul>{notes.map((note) =>
       <li key={note.id}>

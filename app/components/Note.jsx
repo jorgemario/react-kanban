@@ -1,27 +1,19 @@
-import React from 'react';
+var React = require('react');
 
-export default class Note extends React.Component {
-  constructor(props) {
-    super(props);
+var Note = React.createClass({
 
-    this.state = {
+  getInitialState() {
+    return {
       editing: false
     };
-
-    this.renderEdit = this.renderEdit.bind(this);
-    this.renderNote = this.renderNote.bind(this);
-    this.finishEdit = this.finishEdit.bind(this);
-    this.checkEnter = this.checkEnter.bind(this);
-    this.edit = this.edit.bind(this);
-    this.renderDelete = this.renderDelete.bind(this);
-  }
+  },
 
   render() {
     if (this.state.editing) {
       return this.renderEdit();
     }
     return this.renderNote();
-  }
+  },
 
   renderEdit() {
     return (
@@ -31,7 +23,7 @@ export default class Note extends React.Component {
              onBlur={this.finishEdit}
              onKeyPress={this.checkEnter} />
     );
-  }
+  },
 
   renderNote() {
     return (
@@ -40,23 +32,23 @@ export default class Note extends React.Component {
         {this.props.onDelete? this.renderDelete() : null}
       </div>
     );
-  }
+  },
 
   edit() {
     this.setState({
       editing: true
     });
-  }
+  },
 
   renderDelete() {
     return <button onClick={this.props.onDelete}>x</button>;
-  }
+  },
 
   checkEnter(e) {
     if (e.key === 'Enter') {
       this.finishEdit(e);
     }
-  }
+  },
 
   finishEdit(e) {
     if (this.props.onEdit) {
@@ -67,4 +59,7 @@ export default class Note extends React.Component {
       editing: false
     });
   }
-}
+
+});
+
+module.exports = Note;
